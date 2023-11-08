@@ -1,6 +1,6 @@
-import { TtableState } from './components/DynamicSchema/interfaces';
+type InputType = 'field' | 'icon';
 
 export interface SimpleOptions {
-  schema: TtableState;
-  formName: string;
+  text: string;
+  inputType: InputType;
 }

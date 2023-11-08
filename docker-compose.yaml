@@ -9,6 +9,12 @@ services:
         grafana_version: ${GRAFANA_VERSION:-9.2.5}
     ports:
       - 3000:3000/tcp
+    networks:
+      - peresvet
     volumes:
       - ./dist:/var/lib/grafana/plugins/mpco-mpcoform-panel
       - ./provisioning:/etc/grafana/provisioning
+networks:
+  peresvet:
+    name: compose_default
+    external: true

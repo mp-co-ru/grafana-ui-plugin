@@ -2,6 +2,9 @@
   "compilerOptions": {
     "jsx": "react",
     "esModuleInterop": true,
+    "strict": false,
+    "noImplicitAny": false,
+    "allowJs": true
   },
   "extends": "./.config/tsconfig.json"
 }

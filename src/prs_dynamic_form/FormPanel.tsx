@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { PanelProps } from '@grafana/data';
 import axios from 'axios';
 import { Button, IconButton, Input } from '@grafana/ui';
@@ -83,7 +83,7 @@ export const BasicFormPanel: React.FC<PanelProps> = ({ options, id, data, width,
               <Button
                 onClick={(e) => {
                   updateChecked();
-                  // sendNewTagData(inputState);
+                  sendNewTagData(inputState);
                 }}
               >
                 Send

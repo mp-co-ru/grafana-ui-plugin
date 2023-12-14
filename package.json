@@ -1,7 +1,7 @@
 {
   "name": "peresvet-plugin",
-  "version": "1.0.0",
-  "description": "Peresvet Grafana plugin",
+  "version": "0.2.0",
+  "description": "Ручной ввод данных для платформы МПК-Пересвет",
   "scripts": {
     "build": "webpack -c ./.config/webpack/webpack.config.ts --env production",
     "dev": "webpack -w -c ./.config/webpack/webpack.config.ts --env development",
@@ -15,7 +15,7 @@
     "server": "docker-compose up --build",
     "sign": "npx --yes @grafana/sign-plugin"
   },
-  "author": "Mp co",
+  "author": "Match Point Consulting",
   "license": "Apache-2.0",
   "devDependencies": {
     "@babel/core": "^7.16.7",

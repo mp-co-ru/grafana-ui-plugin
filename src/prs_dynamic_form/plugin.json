@@ -1,11 +1,11 @@
 {
   "$schema": "https://raw.githubusercontent.com/grafana/grafana/master/docs/sources/developers/plugins/plugin.schema.json",
   "type": "panel",
-  "name": "Basic Form panel",
-  "id": "peresvet-basicform-panel",
+  "name": "Ручной ввод данных",
+  "id": "peresvet-manualinput-panel",
   "info": {
     "keywords": ["panel"],
-    "description": "Basic form plugin for Peresvet platform",
+    "description": "Панель ручного ввода данных для платформы МПК-Пересвет",
     "author": {
       "name": "Match Point consulting"
     },

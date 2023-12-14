@@ -16,7 +16,7 @@ $ yarn build
 В каталоге проекта выполняем команду:
 
 ```bash
-$ (cd dist && zip -r ../mp-co-peresvet-app-<version>.zip .)
+$ zip -r mp-co-peresvet-app-<version>.zip dist/
 ```
 Каждый новый релиз проекта включает в качестве артефакта новый zip-архив.
 

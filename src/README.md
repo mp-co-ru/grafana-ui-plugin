@@ -1,5 +1,5 @@
 <!-- This README file is going to be the one displayed on the Grafana.com website for your plugin -->
 
-# Mp Co Form
+# Match Point Consulting
 
-Form plugin
+Plugin. Manual input for MPC-Peresvet

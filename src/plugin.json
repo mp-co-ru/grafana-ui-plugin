@@ -3,22 +3,22 @@
   "name": "Peresvet",
   "id": "mp-co-peresvet-app",
   "info": {
-    "description": "Peresvet plugin for Grafana",
+    "description": "Plugin для ручного ввода данных в платформу МПК-Пересвет",
     "author": {
       "name": "Match Point consulting",
-      "url": ""
+      "url": "https://www.matchpoint-consulting.ru/"
     },
     "keywords": ["peresvet"],
     "logos": {},
     "links": [],
     "screenshots": [],
-    "version": "1.0",
-    "updated": "2023-04-05"
+    "version": "0.2",
+    "updated": "2023-12-14"
   },
   "includes": [
     {
       "type": "panel",
-      "name": "Basic Form panel"
+      "name": "Ручной ввод данных"
     },
     {
       "type": "panel",

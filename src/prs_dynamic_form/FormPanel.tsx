@@ -11,7 +11,7 @@ interface FieldData {
   changed: boolean;
 }
 
-export const BasicFormPanel: React.FC<PanelProps> = ({ options, id, data, width, height }) => {
+export const ManualInputPanel: React.FC<PanelProps> = ({ options, id, data, width, height }) => {
   console.log(options);
 
   const [fieldData, setFieldData] = useState<FieldData>({ tagId: '', tagType: '0', curVal: 0, changed: false });

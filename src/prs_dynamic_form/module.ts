@@ -1,32 +1,33 @@
 import { PanelPlugin } from '@grafana/data';
 import { SimpleOptions } from './types';
-import { BasicFormPanel } from './FormPanel';
+import { ManualInputPanel } from './FormPanel';
 
-export const plugin = new PanelPlugin<SimpleOptions>(BasicFormPanel).setPanelOptions((builder) => {
+export const plugin = new PanelPlugin<SimpleOptions>(ManualInputPanel).setPanelOptions((builder) => {
   return builder
     .addTextInput({
       path: 'peresvetUrl',
-      name: 'Url to connect to Peresvet platform',
+      name: 'URL',
+      defaultValue: 'http://localhost/v1/data/',
     })
     .addRadio({
       path: 'inputType',
-      name: 'Input type',
+      name: 'Тип ввода',
       defaultValue: 'field',
       settings: {
         options: [
           {
             value: 'field',
-            label: 'Field',
+            label: 'Поле',
           },
           {
             value: 'icon',
-            label: 'Icon',
+            label: 'Значок',
           },
         ],
       },
     })
     .addTextInput({
       path: 'tagId',
-      name: 'Id of the Tag to connect to',
+      name: 'Id тега',
     });
 });

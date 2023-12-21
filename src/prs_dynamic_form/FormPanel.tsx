@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { PanelProps } from '@grafana/data';
 import axios from 'axios';
-import { Button, IconButton, Input } from '@grafana/ui';
+import { Button, InlineField, InlineFieldRow, InlineSwitch, Input } from '@grafana/ui';
 
 type TagType = '0' | '1' | '2' | '3' | '4';
 interface FieldData {
@@ -12,44 +12,28 @@ interface FieldData {
 }
 
 export const ManualInputPanel: React.FC<PanelProps> = ({ options, id, data, width, height }) => {
-  console.log(options);
 
   const [fieldData, setFieldData] = useState<FieldData>({ tagId: '', tagType: '0', curVal: 0, changed: false });
 
-  const [inputState, setInputState] = useState<string>();
-
-  const get_tag_data = () => {
-    axios({
-      method: 'get',
-      url: options.peresvetUrl,
-      data: { tagId: options.tagId },
-    })
-      .then((value) => {
-        const tagData = value.data.data[0].data[0][0];
-        setFieldData({ ...fieldData, curVal: tagData });
-      })
-      .catch(() => {
-        console.log('Error');
-      });
-  };
+  const [inputState, setInputState] = useState<number>();
+  const [switchState, setSwitchState] = useState<boolean>();
 
   useEffect(() => {
-    get_tag_data();
-    setInputState(fieldData.curVal.toString());
-    console.log('Init fired');
-  }, []);
+    if (data.series[0].fields[1]) {
+      setFieldData({...fieldData, curVal: data.series[0].fields[1].values.get(data.series[0].fields[1].values.length-1)})
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [fieldData.curVal, data]);
 
   function updateChecked() {
-    if (!fieldData.changed) {
-      setFieldData({ ...fieldData, changed: !fieldData.changed });
-      console.log('UpdateChecked', fieldData.changed);
-      // console.log(fieldData.changed);
-    }
+      console.log(fieldData)
+      setFieldData({ ...fieldData, changed: true });
+      console.log(fieldData)
   }
 
-  const sendNewTagData = (newTagData: number | string) => {
+  const sendNewTagData = (newTagData: number) => {
     axios({
-      method: 'post',
+      method: 'POST',
       url: options.peresvetUrl,
       data: {
         data: [
@@ -60,11 +44,12 @@ export const ManualInputPanel: React.FC<PanelProps> = ({ options, id, data, widt
         ],
       },
     })
-      .then(() => {
+      .then((resp) => {
+        console.log(resp)
         setFieldData({ ...fieldData, curVal: newTagData });
       })
-      .catch(() => {
-        console.log('Error');
+      .catch((err) => {
+        console.log(err);
       });
   };
 
@@ -74,10 +59,10 @@ export const ManualInputPanel: React.FC<PanelProps> = ({ options, id, data, widt
         <div style={{ border: fieldData.changed ? '2px solid rgb(61, 113, 217)' : 'rgb(42, 42, 60)' }}>
           <Input
             addonBefore={fieldData.tagId}
-            placeholder={fieldData.curVal.toString()}
+            placeholder={fieldData.curVal ? fieldData.curVal.toString() : "no value"}
             value={inputState}
             onChange={(e) => {
-              setInputState(e.currentTarget.value);
+              setInputState(parseInt(e.currentTarget.value, 10));
             }}
             addonAfter={
               <Button
@@ -98,21 +83,24 @@ export const ManualInputPanel: React.FC<PanelProps> = ({ options, id, data, widt
           style={{
             width: 'fit-content',
             border: fieldData.changed ? '2px solid rgb(61, 113, 217)' : 'rgb(42, 42, 60)',
-            borderRadius: '50%',
             display: 'flex',
             alignContent: 'center',
             justifyContent: 'center',
-            padding: '0.2rem',
           }}
         >
-          <IconButton
-            style={{ margin: '0' }}
-            name="bolt"
-            size="xxxl"
-            onClick={() => {
-              updateChecked();
-            }}
-          ></IconButton>
+          <div>
+            <InlineFieldRow>
+              <InlineField label={ options.tagId }>
+                <InlineSwitch
+                value={switchState}
+                onChange={(e) => {
+                  updateChecked()
+                  setSwitchState(!switchState)
+                  sendNewTagData(switchState ? 0 : 1)  
+            }}/>
+              </InlineField>
+            </InlineFieldRow>
+          </div>
         </div>
       );
     default:
